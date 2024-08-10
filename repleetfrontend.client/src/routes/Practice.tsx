@@ -31,9 +31,15 @@ const Practice = () => {
         }
     }, []);
     //this effect runs even if i just refresh the page 0_0 i need to figure out why state doesn't
+
+
     //become null on refresh
-    //const apiKey = process.env.REACT_APP_PROBLEMS_API_URL
-    //console.log("api key is " + apiKey);
+
+
+    // const apiKey = process.env.VITE_REACT_APP_PROBLEMS_API_URL
+    const apiKey = import.meta.env.VITE_REACT_APP_PROBLEMS_API_URL
+
+    console.log("api key is " + apiKey);
    
    
 
