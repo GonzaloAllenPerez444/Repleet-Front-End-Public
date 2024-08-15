@@ -21,10 +21,12 @@ function Survey() {
     }
 
     return (
+        <div className="w-full h-full font-bold text-white font-helvetica bg-gradient-to-b from-black via-black/90 via-70% to-blue-500">
         <div className="flex flex-col items-center">
-            <h1>Survey Page</h1>
+                <h1 className="text-[5vw]">Survey Page</h1>
             <SliderForm finishForm={MoveToResultsPage} />
             
+            </div>
         </div>
 
     )

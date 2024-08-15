@@ -44,9 +44,9 @@ const Practice = () => {
    
 
     return (
-        <div>
-            <h1>Practice Page 2</h1>
-            <div className="mix-w-sm max-w-l w-1/2 rounded overflow-hidden shadow-lg m-20">
+        <div className="w-screen h-screen font-bold font-helvetica bg-gradient-to-b from-black via-black/90 via-70% to-blue-500">
+            <h1 className="text-white">Practice Page 2</h1>
+            <div className="mix-w-sm max-w-l w-1/2 rounded overflow-hidden shadow-lg m-20 bg-white">
                 <div className="px-6 py-4">
                     <div className="font-bold text-xl mb-2">CategoryName</div>
                     <p className="text-gray-700 text-base">Problem Here</p>

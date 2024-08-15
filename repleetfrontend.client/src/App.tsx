@@ -10,18 +10,26 @@ import "tailwindcss/tailwind.css"
 function App() {
     const isNotCompleted = !(localStorage.getItem('formCompleted') === 'true');
 
-    return (<>
+    return (
+
+        <div className="w-screen h-screen font-bold font-helvetica bg-gradient-to-b from-black via-black/90 via-70% to-blue-500 flex flex-col
+            gap-10">
 
         <Header headerName="Welcome to Repleet" />
-        
-        <h1 className="text-6xl ">Landing Page</h1>
 
+        
+            <h1 className="text-[10vw] text-white  pl-20 ">Repleet</h1>
+         <h2 className="text-[5vw] text-white pl-20"> Spaced Repetition for DSA Problems </h2>
+
+         <div className="pl-20 pt-10 ">
+        
         {isNotCompleted ? (
-            <a href={`/info`}>Get Started </a>
-        ) : <a href={`/practice`}>Continue Learning </a>}
-        
+                    <a href={`/info`} className=" w-1/5 text-white bg-blue-500 rounded-lg p-4  border border-blue-700 hover:text-black transition-colors duration-300">Get Started </a>
+                ) : <a href={`/practice`} className=" w-1/5 text-white bg-blue-500 rounded-lg p-4  border border-blue-700 hover:text-black transition-colors duration-300">Continue Learning </a>}
 
-    </>)
+            </div>
+
+    </div>)
 }
 
 export default App;

@@ -65,7 +65,7 @@ const SliderForm: React.FC<SliderFormProps> = ({finishForm}) => {
             <ul>{listSliders}</ul>
             <button
                 type="submit"
-                className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-700">
+                className="mt-4 px-4 py-2 bg-white text-black rounded-md hover:bg-gray-200">
                 Submit
             </button>
         </form>
