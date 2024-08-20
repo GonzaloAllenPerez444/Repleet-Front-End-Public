@@ -61,7 +61,7 @@ const SliderForm: React.FC<SliderFormProps> = ({finishForm}) => {
     };
 
     return (
-        <form onSubmit={handleSubmit}> 
+        <form className='w-full max-w-4xl mx-auto p-4'  onSubmit={handleSubmit}> 
             <ul>{listSliders}</ul>
             <button
                 type="submit"
