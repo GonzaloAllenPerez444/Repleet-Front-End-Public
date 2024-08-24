@@ -3,6 +3,8 @@ import React from 'react';
 import { Route, redirect } from 'react-router-dom';
 import Practice from './Practice';
 import App from '../routes/App'
+import AuthorizeView, { AuthorizedUser } from '../components/AuthorizeView';
+import LogoutLink from '../components/LogoutLink';
 function PracticeRouter(){ 
 
     const isCompleted = localStorage.getItem('formCompleted') === 'true';
@@ -10,6 +12,11 @@ function PracticeRouter(){
 
 
     return (
+
+        <AuthorizeView>
+            <span><LogoutLink>Logout <AuthorizedUser value="email" /></LogoutLink></span>
+            
+        
         <div>
 
             {isCompleted ? (
@@ -17,6 +24,7 @@ function PracticeRouter(){
             ) : (< App />)}
 
             </div>       
+        </AuthorizeView>
         
     )
 

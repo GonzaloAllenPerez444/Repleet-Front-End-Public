@@ -56,7 +56,7 @@ function SignIn() {
                     console.log(data);
                     if (data.ok) {
                         setError("Successful Login.");
-                        window.location.href = '/';
+                        window.location.href = '/practice';
                     }
                     else
                         setError("Error Logging In.");
