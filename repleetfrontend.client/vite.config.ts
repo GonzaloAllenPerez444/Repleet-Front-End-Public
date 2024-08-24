@@ -68,7 +68,21 @@ export default defineConfig({
             '^/logout': {
                 target: 'https://localhost:44370',
                 secure: false
+            },
+            '^/api/ProblemsAPI/submitratings': {
+                target: 'https://localhost:44370',
+                secure: false
+            },
+            '^/api/ProblemsAPI/getnextproblem': {
+                target: 'https://localhost:44370',
+                secure: false
+            },
+            '^/api/ProblemsAPI/submitproblem': {
+                target: 'https://localhost:44370',
+                secure: false
             }
+
+
         },
         port: 5173,
         https: {

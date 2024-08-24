@@ -12,23 +12,105 @@ import {
 import { useLocation, redirect ,useNavigate} from 'react-router-dom';
 import { useEffect } from 'react';
 
+interface GetProblemResponse {
+    value: string;
+    // Add other properties that are expected in the response
+}
+async function FetchNextProblem(): Promise<GetProblemResponse> {
+    try {
+        const response = await fetch("/api/ProblemsAPI/getnextproblem", {
+            method: "GET",
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        // Parse the JSON body if the response is successful
+        return await response.json() as GetProblemResponse;
+
+    } catch (error) {
+        // Handle the final error
+        console.error("An error occurred:", (error as Error).message);
+        throw error; // Re-throw the error if needed, or handle it differently
+    }
+}
+
 
 const Practice = () => {
-    const location = useLocation();
-    let state = location.state;
-
-    console.log(state);
+    
 
     useEffect(() => {
-        if ( state !== undefined && state?.from === '/info') {
-            console.log('Navigated from Survey');
-            console.log(state.ratingList);
-
-
+        
             //Connect to the backend API here!
+            //First, check if a user has a problemSet associated with them. if they do, get next problem.
+            //To do this, add the endpoints to the proxy and fetch getnextproblem.
+        //If you get return new JsonResult(Ok("Problem Set Not Found")) then we need to make a problem set first.
+
+        const ratingListString = localStorage.getItem('userRatings');
+
+        FetchNextProblem()
+            .then(data => {
+                    //if it's a new user
+                    if (data.value === "Problem Set Not Found")
+                    {
+                        console.log("New User, creating new Problem Set");
+                        console.log(ratingListString);
+                        if (ratingListString == null) { console.log("fill out survey first!"); return; }
+
+                        //make new problemSet
+                        fetch("/api/ProblemsAPI/submitratings", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify({
+                                "ratingList": ratingListString
+                            }),
+                        }).then(response => {
+                            // Check if the response is successful (status code 200-299)
+
+                            if (!response.ok) {
+                                console.log(`HTTP error! status: ${response.status}`)
+                                throw new Error(`HTTP error! status: ${response.status}`);
+                            }
+                            // Parse the JSON body if the response is successful
+                            return response.json();
+                        }).then(data => {
+                            console.log("new PS ID is " + data.value);
+
+                            //Now that user is Created, get the next problem as before.
+
+                            FetchNextProblem().then(data => {
+                                console.log(data.value);
+                            });
+                            
+                        })
+
+                        //potentially delete userRatings from local storage for security reasons
+
+
+
+                    }
+
+                    
+                    // If this is a preexisting user
+                    else
+                    {
+                        console.log(data.value)
+                    };
+                })
+                .catch(error => {
+                    // Handle the final error
+                    console.log(error.message);
+                });
+
+
+            //If they don't, get the survey results from localstorage, make a new problemset and get the next problem after that.
+            //Delete the survey ratings afterward for security?
             
 
-        }
+        
     }, []);
     //this effect runs even if i just refresh the page 0_0 i need to figure out why state doesn't
 
@@ -37,10 +119,10 @@ const Practice = () => {
 
 
     // const apiKey = process.env.VITE_REACT_APP_PROBLEMS_API_URL
-    const apiKey = import.meta.env.VITE_REACT_APP_PROBLEMS_API_URL
+    //const apiKey = import.meta.env.VITE_REACT_APP_PROBLEMS_API_URL
 
-    console.log("api key is " + apiKey);
-   
+    //console.log("api key is " + apiKey);
+    
    
 
     return (

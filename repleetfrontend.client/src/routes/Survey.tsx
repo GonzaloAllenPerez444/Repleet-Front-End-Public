@@ -13,6 +13,8 @@ function Survey() {
         
         //set the state of main completed form to true.
         localStorage.setItem('formCompleted', 'true');
+        const userRatingsString = categoryRatingList.join(",");
+        localStorage.setItem('userRatings',userRatingsString);
 
         //navigate to practice page with that info.
         Navigate('/practice', { state: { ratingList: categoryRatingList, from: '/info' } });
