@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import App from './App.tsx'
+import App from './routes/App.tsx'
 import './style.css'
 import * as ReactDOM from "react-dom/client";
 import {
@@ -9,11 +9,13 @@ import {
     Link,
     redirect,
 } from "react-router-dom";
-import ErrorPage from "./errorPage";
+import ErrorPage from "./components/errorPage.tsx";
 
 import PracticeRouter from './routes/PracticeRouter.tsx';
 import SurveyRouter from './routes/SurveyRouter.tsx';
 
+import SignIn from './routes/SignIn.tsx';
+import SignUp from './routes/SignUp.tsx';
 
 
 if (localStorage.getItem('formCompleted') !== 'true') {localStorage.setItem('formCompleted','false') }
@@ -33,6 +35,14 @@ const router = createBrowserRouter([
         path: "practice",
         element: <PracticeRouter />
         
+    },
+    {
+        path: "/signin",
+        element: <SignIn />
+    },
+    {
+        path: "/signup",
+        element: <SignUp />
     }
         
 ]);

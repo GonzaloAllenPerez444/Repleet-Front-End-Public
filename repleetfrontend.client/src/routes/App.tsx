@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import './App.css';
-import Header from './LandingPageHeader.tsx';
-import './style.css';
+import '../App.css';
+import Header from '../components/LandingPageHeader.tsx';
+import '../style.css';
 import "tailwindcss/tailwind.css"
 
 
@@ -21,7 +21,8 @@ function App() {
             <h1 className="text-[10vw] text-white  pl-20 ">Repleet</h1>
          <h2 className="text-[5vw] text-white pl-20"> Spaced Repetition for DSA Problems </h2>
 
-         <div className="pl-20 pt-10 ">
+            <div className="pl-20 pt-10 ">
+         
         
         {isNotCompleted ? (
                     <a href={`/info`} className=" w-1/5 text-white bg-blue-500 rounded-lg p-4  border border-blue-700 hover:text-black transition-colors duration-300">Get Started </a>
