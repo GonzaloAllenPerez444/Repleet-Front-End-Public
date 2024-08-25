@@ -49,6 +49,12 @@ interface ProblemInfoDTO {
 const isProblemInfoDTO = (value: any): value is ProblemInfoDTO => {
     return (value as ProblemInfoDTO).title !== undefined;
 };
+const getWordFromDifficulty = (d: QuestionDifficulty | undefined) => {
+    if (d == undefined) { return undefined; }
+    if (d == QuestionDifficulty.Easy) { return "Easy" }
+    else if (d == QuestionDifficulty.Medium) { return "Medium" }
+    else if (d == QuestionDifficulty.Hard) {return "Hard" }
+}
 async function FetchNextProblem(): Promise<GetProblemResponse> {
     try {
         const response = await fetch("/api/ProblemsAPI/getnextproblem", {
@@ -166,21 +172,27 @@ const Practice = () => {
 
     return (
         <div className=" w-screen h-screen font-bold font-helvetica bg-gradient-to-b from-black via-black/90 via-70% to-blue-500">
-            <h1 className="text-white">Practice Page 2</h1>
+            <h1 className="text-white">Practice</h1>
             <div className="mix-w-sm max-w-l w-1/2 rounded overflow-hidden shadow-lg m-20 bg-white">
                 <div className="px-6 py-4">
-                    <div className="font-bold text-xl mb-2">Category Name: {ProblemData?.categoryName}</div>
-                    <p className="text-gray-700 text-base">Problem Title: {ProblemData?.title}</p> 
-                    <p className="text-gray-700 text-base">Problem Difficulty: {ProblemData?.difficulty}</p>
-                    <p className="text-gray-700 text-base">Problem URL: {ProblemData?.url}</p> 
-                    <p className="text-gray-700 text-base">Current Skill Level: {ProblemData?.skillLevel}</p> 
+                    <div className="font-bold text-xl mb-2">Problem : {ProblemData?.title}</div>
+                    <p className="text-gray-700 text-base">Category: {ProblemData?.categoryName}</p>                   
+                    <a
+                        href={ProblemData?.url}
+                        className="text-gray-700 text-base"
+                        target="_blank" // Opens the link in a new tab
+                        rel="noopener noreferrer" // Security and performance
+                    >
+                        URL: {ProblemData?.url}
+                    </a>
+                   
 
 
                 </div>
                 <div className="px-6 pt-4 pb-2">
-                    <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#tag1</span>
-                    <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#tag2</span>
-                    <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#tag3</span>
+                    <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Problem Difficulty: {getWordFromDifficulty(ProblemData?.difficulty)}</span>
+                    <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Current Skill Level: {ProblemData?.skillLevel}</span>
+                   
                 </div>
             </div>
         </div>
