@@ -3,12 +3,14 @@ import '../App.css';
 import Header from '../components/LandingPageHeader.tsx';
 import '../style.css';
 import "tailwindcss/tailwind.css"
+import { useAuth } from '../components/AuthContext.tsx';
 
 
 
 
 function App() {
     const isNotCompleted = !(localStorage.getItem('formCompleted') === 'true');
+    const { isAuthenticated } = useAuth();
 
     return (
 
@@ -16,8 +18,14 @@ function App() {
             gap-10">
 
             <Header>
-             <a className='py-4 hover:text-blue-400 transition-colors duration-300' href="/signin">Sign Up / Sign In</a>
+                {isAuthenticated ? (
+                    <p className='py-4 hover:text-blue-400 transition-colors duration-300'>You Are Signed In</p>
+                ) : (
+                    <a className='py-4 hover:text-blue-400 transition-colors duration-300' href="/signin">Sign Up / Sign In</a>
+                )}
             </Header>
+            
+            
 
         
             <h1 className="text-[10vw] text-white  pl-20 ">Repleet</h1>

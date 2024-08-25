@@ -16,6 +16,7 @@ import SurveyRouter from './routes/SurveyRouter.tsx';
 
 import SignIn from './routes/SignIn.tsx';
 import SignUp from './routes/SignUp.tsx';
+import { AuthProvider } from './components/AuthContext.tsx';
 
 
 if (localStorage.getItem('formCompleted') !== 'true') {localStorage.setItem('formCompleted','false') }
@@ -48,7 +49,9 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-        <RouterProvider router={router} />
+    <React.StrictMode>
+  <AuthProvider>
+            <RouterProvider router={router} />
+  </AuthProvider>
   </React.StrictMode>,
 )
