@@ -14,8 +14,7 @@ function PracticeRouter(){
     return (
 
         <AuthorizeView>
-            <span><LogoutLink>Logout <AuthorizedUser value="email" /></LogoutLink></span>
-            
+                    
         
         <div>
 

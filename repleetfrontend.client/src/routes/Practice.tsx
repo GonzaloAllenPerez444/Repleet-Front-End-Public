@@ -11,6 +11,9 @@ import {
 } from "react-router-dom";
 import { useLocation, redirect ,useNavigate} from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import Header from '../components/LandingPageHeader';
+import LogoutLink from '../components/LogoutLink';
+import { AuthorizedUser } from '../components/AuthorizeView';
 
 interface GetProblemResponse {
     value: ProblemInfoDTO | string;
@@ -172,6 +175,11 @@ const Practice = () => {
 
     return (
         <div className=" w-screen h-screen font-bold font-helvetica bg-gradient-to-b from-black via-black/90 via-70% to-blue-500">
+
+            <Header>
+                <span><LogoutLink>Logout <AuthorizedUser value="email" /></LogoutLink></span>
+            </Header>
+
             <h1 className="text-white">Practice</h1>
             <div className="mix-w-sm max-w-l w-1/2 rounded overflow-hidden shadow-lg m-20 bg-white">
                 <div className="px-6 py-4">
