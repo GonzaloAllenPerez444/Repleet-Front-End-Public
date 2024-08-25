@@ -14,6 +14,7 @@ import { useEffect, useState } from 'react';
 import Header from '../components/LandingPageHeader';
 import LogoutLink from '../components/LogoutLink';
 import { AuthorizedUser } from '../components/AuthorizeView';
+import FeedbackForm from '../components/FeedbackForm';
 
 interface GetProblemResponse {
     value: ProblemInfoDTO | string;
@@ -76,6 +77,11 @@ async function FetchNextProblem(): Promise<GetProblemResponse> {
         console.error("An error occurred:", (error as Error).message);
         throw error; // Re-throw the error if needed, or handle it differently
     }
+}
+
+async function ProcessFormSubmit(rating:SkillLevel) {
+    console.log("Called Process Form Submit with " + rating)
+
 }
 
 
@@ -202,7 +208,9 @@ const Practice = () => {
                     <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Current Skill Level: {ProblemData?.skillLevel}</span>
                    
                 </div>
+                
             </div>
+            <FeedbackForm finishForm={ProcessFormSubmit } />
         </div>
     );
 };
