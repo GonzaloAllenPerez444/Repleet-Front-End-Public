@@ -10,12 +10,45 @@ import {
     Link,
 } from "react-router-dom";
 import { useLocation, redirect ,useNavigate} from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 interface GetProblemResponse {
-    value: string;
-    // Add other properties that are expected in the response
+    value: ProblemInfoDTO | string;
+    
 }
+
+enum QuestionDifficulty {
+    Easy = 0,
+    Medium = 1,
+    Hard = 2
+}
+
+enum SkillLevel {
+    Horrible = 1,
+    lacking = 2,
+    alright = 3,
+    good = 4,
+    perfect = 5
+}
+    
+interface ProblemInfoDTO {
+
+   
+        title: string,
+        url: string,
+        isCompleted: boolean,
+        completionDate: Date,
+        difficulty: QuestionDifficulty,
+        skillLevel: SkillLevel,
+        categoryName: string
+
+
+   
+};
+// Type guard to check if value is a ProblemInfoDTO
+const isProblemInfoDTO = (value: any): value is ProblemInfoDTO => {
+    return (value as ProblemInfoDTO).title !== undefined;
+};
 async function FetchNextProblem(): Promise<GetProblemResponse> {
     try {
         const response = await fetch("/api/ProblemsAPI/getnextproblem", {
@@ -38,6 +71,9 @@ async function FetchNextProblem(): Promise<GetProblemResponse> {
 
 
 const Practice = () => {
+
+    const [ProblemData , setProblemData] = useState<ProblemInfoDTO | null >(null);
+    const [loading, setLoading] = useState(true); // State to handle loading state
     
 
     useEffect(() => {
@@ -81,8 +117,11 @@ const Practice = () => {
 
                             //Now that user is Created, get the next problem as before.
 
-                            FetchNextProblem().then(data => {
+                            FetchNextProblem().then((data: {value: string | ProblemInfoDTO}) => {
                                 console.log(data.value);
+                                if (isProblemInfoDTO(data.value)) { setProblemData(data.value); }
+                                
+                                setLoading(false);
                             });
                             
                         })
@@ -98,6 +137,11 @@ const Practice = () => {
                     else
                     {
                         console.log(data.value)
+                        if (isProblemInfoDTO(data.value)) {
+                            
+                            setProblemData(data.value);
+                        }
+                        setLoading(false);
                     };
                 })
                 .catch(error => {
@@ -112,16 +156,11 @@ const Practice = () => {
 
         
     }, []);
-    //this effect runs even if i just refresh the page 0_0 i need to figure out why state doesn't
-
-
-    //become null on refresh
-
+    
 
     // const apiKey = process.env.VITE_REACT_APP_PROBLEMS_API_URL
     //const apiKey = import.meta.env.VITE_REACT_APP_PROBLEMS_API_URL
-
-    //console.log("api key is " + apiKey);
+ 
     
    
 
@@ -130,8 +169,13 @@ const Practice = () => {
             <h1 className="text-white">Practice Page 2</h1>
             <div className="mix-w-sm max-w-l w-1/2 rounded overflow-hidden shadow-lg m-20 bg-white">
                 <div className="px-6 py-4">
-                    <div className="font-bold text-xl mb-2">CategoryName</div>
-                    <p className="text-gray-700 text-base">Problem Here</p>
+                    <div className="font-bold text-xl mb-2">Category Name: {ProblemData?.categoryName}</div>
+                    <p className="text-gray-700 text-base">Problem Title: {ProblemData?.title}</p> 
+                    <p className="text-gray-700 text-base">Problem Difficulty: {ProblemData?.difficulty}</p>
+                    <p className="text-gray-700 text-base">Problem URL: {ProblemData?.url}</p> 
+                    <p className="text-gray-700 text-base">Current Skill Level: {ProblemData?.skillLevel}</p> 
+
+
                 </div>
                 <div className="px-6 pt-4 pb-2">
                     <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#tag1</span>
