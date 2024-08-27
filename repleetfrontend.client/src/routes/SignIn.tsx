@@ -77,8 +77,11 @@ function SignIn() {
             <Header>
                 <div></div>
             </Header>
-        <div className="containerbox">
-            <h3>Login</h3>
+            <div className="containerbox w-1/2 sm:w-1/3 h-1/2 flex flex-col">
+
+            
+
+            <h1 className="text-4xl pb-2">Login</h1>
             <form onSubmit={handleSubmit}>
                 <div>
                     <label className="forminput" htmlFor="email">Email:</label>
@@ -89,7 +92,10 @@ function SignIn() {
                         id="email"
                         name="email"
                         value={email}
-                        onChange={handleChange}
+                            onChange={handleChange}
+                        className="bg-gray-200"
+                            
+                         
                     />
                 </div>
                 <div>
@@ -101,7 +107,8 @@ function SignIn() {
                         id="password"
                         name="password"
                         value={password}
-                        onChange={handleChange}
+                            onChange={handleChange}
+                        className="bg-gray-200"
                     />
                 </div>
                 <div>
@@ -113,14 +120,19 @@ function SignIn() {
                         onChange={handleChange} /><span>Remember Me</span>
                 </div>
                 <div>
-                    <button type="submit">Login</button>
+                    <button type="submit" className="border-2 border-black p-1 my-2 rounded-md">Login</button>
                 </div>
                 <div>
-                    <button onClick={handleRegisterClick}>Register</button>
+                        <button onClick={handleRegisterClick} className="border-2 border-black p-1 rounded-md my-2">Go To Register</button>
                 </div>
             </form>
-            {error && <p className="error">{error}</p>}
+                    {error && <p className="error">{error}</p>}
+
+
+                
+
             </div>
+            
         </div>
     );
 }
