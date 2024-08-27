@@ -15,40 +15,16 @@ import Header from '../components/LandingPageHeader';
 import LogoutLink from '../components/LogoutLink';
 import { AuthorizedUser } from '../components/AuthorizeView';
 import FeedbackForm from '../components/FeedbackForm';
+import { ProblemInfoDTO, QuestionDifficulty, SkillLevel, SubmitProblemRequestDTO } from '../Contracts/DTOS_AND_ENUMS';
+
+
 
 interface GetProblemResponse {
     value: ProblemInfoDTO | string;
     
 }
 
-enum QuestionDifficulty {
-    Easy = 0,
-    Medium = 1,
-    Hard = 2
-}
 
-enum SkillLevel {
-    Horrible = 1,
-    lacking = 2,
-    alright = 3,
-    good = 4,
-    perfect = 5
-}
-    
-interface ProblemInfoDTO {
-
-   
-        title: string,
-        url: string,
-        isCompleted: boolean,
-        completionDate: Date,
-        difficulty: QuestionDifficulty,
-        skillLevel: SkillLevel,
-        categoryName: string
-
-
-   
-};
 // Type guard to check if value is a ProblemInfoDTO
 const isProblemInfoDTO = (value: any): value is ProblemInfoDTO => {
     return (value as ProblemInfoDTO).title !== undefined;
@@ -79,16 +55,56 @@ async function FetchNextProblem(): Promise<GetProblemResponse> {
     }
 }
 
-async function ProcessFormSubmit(rating:SkillLevel) {
-    console.log("Called Process Form Submit with " + rating)
-
-}
 
 
 const Practice = () => {
 
-    const [ProblemData , setProblemData] = useState<ProblemInfoDTO | null >(null);
+    const [ProblemData, setProblemData] = useState<ProblemInfoDTO | null>(null);
     const [loading, setLoading] = useState(true); // State to handle loading state
+
+    async function ProcessFormSubmit(rating: SkillLevel) {
+        console.log("Called Process Form Submit with " + rating)
+        const SPR: SubmitProblemRequestDTO = {
+
+            "problemName": ProblemData?.title,
+            "categoryName": ProblemData?.categoryName,
+            "report": rating
+        };
+
+        //call the submitproblem POST Endpoint with the rating
+        fetch("/api/ProblemsAPI/submitproblem", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(SPR),
+        }).then(response => {
+            // Check if the response is successful (status code 200-299)
+
+            if (!response.ok) {
+                console.log(`HTTP error! status: ${response.status}`)
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            // Parse the JSON body if the response is successful
+            return response.json();
+        }).then(data => {
+            console.log("Updated PS was " + JSON.stringify(data.value));
+
+            //Now call the GetNextProblemEndpoint to generate the next card to display
+            FetchNextProblem().then((data: { value: string | ProblemInfoDTO }) => {
+                console.log(data.value);
+                if (isProblemInfoDTO(data.value)) { setProblemData(data.value); }
+
+                setLoading(false);
+            });
+
+        });
+
+
+
+    };
+
+
     
 
     useEffect(() => {

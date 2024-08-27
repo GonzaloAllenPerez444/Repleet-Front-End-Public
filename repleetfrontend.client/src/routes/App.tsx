@@ -17,12 +17,14 @@ function App() {
         <div className="w-screen h-screen font-bold font-helvetica bg-gradient-to-b from-black via-black/90 via-70% to-blue-500 flex flex-col
             gap-10">
 
-            <Header>
+            <Header >
+                
                 {isAuthenticated ? (
                     <p className='py-4 hover:text-blue-400 transition-colors duration-300'>You Are Signed In</p>
                 ) : (
                     <a className='py-4 hover:text-blue-400 transition-colors duration-300' href="/signin">Sign Up / Sign In</a>
                 )}
+                
             </Header>
             
             

@@ -1,12 +1,7 @@
 import React, { useState } from 'react';
+import { SkillLevel} from '../Contracts/DTOS_AND_ENUMS';
 
-enum SkillLevel {
-    Horrible = 1,
-    lacking = 2,
-    alright = 3,
-    good = 4,
-    perfect = 5
-}
+
 interface FormProps {
     finishForm: Function;
 }
