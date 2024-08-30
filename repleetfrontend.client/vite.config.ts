@@ -80,6 +80,10 @@ export default defineConfig({
             '^/api/ProblemsAPI/submitproblem': {
                 target: 'https://localhost:44370',
                 secure: false
+            },
+            '^/api/ProblemsAPI/getcategoryprogress': {
+                target: 'https://localhost:44370',
+                secure: false
             }
 
 

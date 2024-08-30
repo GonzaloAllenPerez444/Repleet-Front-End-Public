@@ -15,7 +15,8 @@ import Header from '../components/LandingPageHeader';
 import LogoutLink from '../components/LogoutLink';
 import { AuthorizedUser } from '../components/AuthorizeView';
 import FeedbackForm from '../components/FeedbackForm';
-import { ProblemInfoDTO, QuestionDifficulty, SkillLevel, SubmitProblemRequestDTO } from '../Contracts/DTOS_AND_ENUMS';
+import { ProblemInfoDTO, ProblemSetProgressResponseDTO, QuestionDifficulty, SkillLevel, SubmitProblemRequestDTO } from '../Contracts/DTOS_AND_ENUMS';
+import PercentageBars from '../components/PercentageBars';
 
 
 
@@ -55,11 +56,34 @@ async function FetchNextProblem(): Promise<GetProblemResponse> {
     }
 }
 
+async function FetchProgress(): Promise<ProblemSetProgressResponseDTO> {
+    try {
+        const response = await fetch("/api/ProblemsAPI/getcategoryprogress", {
+            method: "GET",
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        // Parse the JSON body if the response is successful
+        
+        
+        return await response.json() as ProblemSetProgressResponseDTO;
+
+    } catch (error) {
+        // Handle the final error
+        console.error("An error occurred:", (error as Error).message);
+        throw error; // Re-throw the error if needed, or handle it differently
+    }
+}
+
 
 
 const Practice = () => {
 
     const [ProblemData, setProblemData] = useState<ProblemInfoDTO | null>(null);
+    const [CategoryPercents, setCategoryPercents] = useState<Map<string,number> | null>(null);
     const [loading, setLoading] = useState(true); // State to handle loading state
 
     async function ProcessFormSubmit(rating: SkillLevel) {
@@ -183,7 +207,15 @@ const Practice = () => {
 
             //If they don't, get the survey results from localstorage, make a new problemset and get the next problem after that.
             //Delete the survey ratings afterward for security?
-            
+
+            //Get Progress results
+        FetchProgress().then(
+            (value: ProblemSetProgressResponseDTO ) => {
+                console.log("progress data is " + JSON.stringify(value.data));
+                const categoryMap:Map<string,number> = new Map(Object.entries(value.data))
+                setCategoryPercents(categoryMap);
+                
+            })
 
         
     }, []);
@@ -226,6 +258,11 @@ const Practice = () => {
                 </div>
                 
             </div>
+            {!loading && CategoryPercents ? (
+                <PercentageBars data={CategoryPercents} />
+            ) : (
+                 <div>No data available</div>
+            )}
             <FeedbackForm finishForm={ProcessFormSubmit } />
         </div>
     );

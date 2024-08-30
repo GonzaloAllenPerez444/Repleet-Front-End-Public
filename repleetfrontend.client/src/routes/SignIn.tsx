@@ -77,7 +77,7 @@ function SignIn() {
             <Header>
                 <div></div>
             </Header>
-            <div className="containerbox w-1/2 sm:w-1/3 h-1/2 flex flex-col">
+            <div className="containerbox w-1/2 sm:w-1/3 h-1/2 flex flex-col overflow-hidden">
 
             
 

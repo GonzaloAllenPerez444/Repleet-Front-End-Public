@@ -33,3 +33,7 @@ export interface SubmitProblemRequestDTO {
     report: SkillLevel | undefined
 };
 
+export interface ProblemSetProgressResponseDTO { 
+    data: Map< string, number >
+}
+
