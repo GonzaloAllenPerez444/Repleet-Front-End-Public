@@ -4,6 +4,7 @@ import Header from '../components/LandingPageHeader.tsx';
 import '../style.css';
 import "tailwindcss/tailwind.css"
 import { useAuth } from '../components/AuthContext.tsx';
+import TutorialCarousel from '../components/TutorialCarousel.tsx';
 
 
 
@@ -14,7 +15,7 @@ function App() {
 
     return (
 
-        <div className="w-screen h-screen font-bold font-helvetica bg-gradient-to-b from-black via-black/90 via-70% to-blue-500 flex flex-col
+        <div className="w-screen min-h-screen font-bold font-helvetica bg-gradient-to-b from-black via-black/90 via-70% to-blue-500 flex flex-col
             gap-10">
 
             <Header >
@@ -42,7 +43,13 @@ function App() {
 
             </div>
 
-    </div>)
+            <div className="flex">
+            <h1 className="text-white text-[2vw] pl-20"> HOW IT WORKS:</h1>
+                <TutorialCarousel />
+            </div>
+
+        </div>
+    )
 }
 
 export default App;
