@@ -124,7 +124,15 @@ const Practice = () => {
 
         });
 
+        //Also Fetch and display the new percentage bar again to give the user the most recent feedback!
+        FetchProgress().then(
+            (value: ProblemSetProgressResponseDTO) => {
+                console.log("NEW progress data is " + JSON.stringify(value.data));
+                const categoryMap: Map<string, number> = new Map(Object.entries(value.data))
+                setCategoryPercents(categoryMap);
 
+            })
+        
 
     };
 
