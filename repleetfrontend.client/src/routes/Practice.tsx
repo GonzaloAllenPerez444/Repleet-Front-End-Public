@@ -127,10 +127,10 @@ const Practice = () => {
         //Also Fetch and display the new percentage bar again to give the user the most recent feedback!
         FetchProgress().then(
             (value: ProblemSetProgressResponseDTO) => {
-                console.log("NEW progress data is " + JSON.stringify(value.data));
+                
                 const categoryMap: Map<string, number> = new Map(Object.entries(value.data))
                 setCategoryPercents(categoryMap);
-
+                console.log("NEW progress data is " + JSON.stringify(value.data));
             })
         
 
@@ -183,8 +183,19 @@ const Practice = () => {
                             FetchNextProblem().then((data: {value: string | ProblemInfoDTO}) => {
                                 console.log(data.value);
                                 if (isProblemInfoDTO(data.value)) { setProblemData(data.value); }
-                                
+
+                                //process percentage bars now and display
+                                FetchProgress().then(
+                                    (value: ProblemSetProgressResponseDTO) => {
+                                        console.log("progress data is " + JSON.stringify(value.data));
+                                        const categoryMap: Map<string, number> = new Map(Object.entries(value.data))
+                                        setCategoryPercents(categoryMap);
+
+                                    })
+
+
                                 setLoading(false);
+
                             });
                             
                         })
@@ -204,7 +215,18 @@ const Practice = () => {
                             
                             setProblemData(data.value);
                         }
+                        
+
+                        //fetch progress and display
+                        FetchProgress().then(
+                            (value: ProblemSetProgressResponseDTO) => {
+                                console.log("progress data is " + JSON.stringify(value.data));
+                                const categoryMap: Map<string, number> = new Map(Object.entries(value.data))
+                                setCategoryPercents(categoryMap);
+
+                            })
                         setLoading(false);
+
                     };
                 })
                 .catch(error => {
@@ -217,13 +239,7 @@ const Practice = () => {
             //Delete the survey ratings afterward for security?
 
             //Get Progress results
-        FetchProgress().then(
-            (value: ProblemSetProgressResponseDTO ) => {
-                console.log("progress data is " + JSON.stringify(value.data));
-                const categoryMap:Map<string,number> = new Map(Object.entries(value.data))
-                setCategoryPercents(categoryMap);
-                
-            })
+        
 
         
     }, []);

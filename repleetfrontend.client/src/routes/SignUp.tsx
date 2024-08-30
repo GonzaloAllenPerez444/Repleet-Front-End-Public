@@ -74,8 +74,8 @@ function SignUp() {
             <Header>
                 <div></div>
             </Header>
-        <div className="containerbox">
-            <h3>Register</h3>
+            <div className="containerbox w-1/2 sm:w-1/3 h-1/2 flex flex-col overflow-hidden">
+             <h1 className="text-4xl pb-2">Register</h1>
 
             <form onSubmit={handleSubmit}>
                 <div>
@@ -87,6 +87,7 @@ function SignUp() {
                         name="email"
                         value={email}
                         onChange={handleChange}
+                        className="bg-gray-200"
                     />
                 </div>
                 <div>
@@ -97,6 +98,7 @@ function SignUp() {
                         name="password"
                         value={password}
                         onChange={handleChange}
+                        className="bg-gray-200"
                     />
                 </div>
                 <div>
@@ -107,14 +109,15 @@ function SignUp() {
                         name="confirmPassword"
                         value={confirmPassword}
                         onChange={handleChange}
+                        className="bg-gray-200"
                     />
                 </div>
                 <div>
-                    <button type="submit">Register</button>
+                        <button type="submit" className="border-2 border-black p-1 my-2 rounded-md">Register</button>
 
                 </div>
                 <div>
-                    <button onClick={handleLoginClick}>Go to Login</button>
+                        <button onClick={handleLoginClick} className="border-2 border-black p-1 rounded-md my-2">Go to Login</button>
                 </div>
             </form>
 

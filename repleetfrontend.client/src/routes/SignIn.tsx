@@ -81,7 +81,7 @@ function SignIn() {
 
             
 
-            <h1 className="text-4xl pb-2">Login</h1>
+            <h1 className="text-4xl pb-2">Login </h1>
             <form onSubmit={handleSubmit}>
                 <div>
                     <label className="forminput" htmlFor="email">Email:</label>
