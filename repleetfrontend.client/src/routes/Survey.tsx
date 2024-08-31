@@ -34,8 +34,8 @@ function Survey() {
                     <a className='py-4 hover:text-blue-400 transition-colors duration-300' href="/signin">Sign Up / Sign In</a>
                 )}
             </Header>
-            );
-        <div className="flex flex-col items-center">
+            
+        <div className="flex flex-col items-center ">
                 <h1 className="text-[5vw]">Survey</h1>
                 <h3 className="text=[3vw">Let's Get a Grasp on Your Starting Point</h3>
             <SliderForm finishForm={MoveToResultsPage} />

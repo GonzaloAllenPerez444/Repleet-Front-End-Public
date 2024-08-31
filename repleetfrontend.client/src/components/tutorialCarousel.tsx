@@ -51,13 +51,13 @@ const TutorialCarousel: React.FC = () => {
 
             <button
                 onClick={handlePrevious}
-                className="absolute left-0 transform -translate-y-1/2 px-4 py-2 bg-gray-800 text-white rounded-full ml-10"
+                className="absolute left-0 sm:bottom-auto bottom-0 transform -translate-y-1/2 px-4 py-2 bg-gray-800 text-white rounded-full ml-10"
             >
                 &lt;
             </button>
             <button
                 onClick={handleNext}
-                className="absolute right-0 transform -translate-y-1/2 px-4 py-2 bg-gray-800 text-white rounded-full mr-10"
+                className="absolute right-0 sm:bottom-auto bottom-0 transform -translate-y-1/2 px-4 py-2 bg-gray-800 text-white rounded-full mr-10"
             >
                 &gt;
             </button>

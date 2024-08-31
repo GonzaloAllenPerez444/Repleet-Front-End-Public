@@ -44,7 +44,7 @@ const SliderForm: React.FC<SliderFormProps> = ({finishForm}) => {
 
     }
 
-    const listSliders = categoryNames.map(name => <li key={name}> <Slider categoryName={name} changeParentState={handleSliderChange} /></li>)
+    const listSliders = categoryNames.map(name => <li key={name} className="w-full flex justify-center"> <Slider categoryName={name} changeParentState={handleSliderChange} /></li>)
 
 
     
@@ -62,7 +62,7 @@ const SliderForm: React.FC<SliderFormProps> = ({finishForm}) => {
 
     return (
         <form className='w-full max-w-4xl mx-auto p-4'  onSubmit={handleSubmit}> 
-            <ul>{listSliders}</ul>
+            <ul className="flex flex-col items-center">{listSliders}</ul>
             <button
                 type="submit"
                 className="mt-4 px-4 py-2 bg-white text-black rounded-md hover:bg-gray-200">

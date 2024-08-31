@@ -18,7 +18,7 @@ const Header: React.FC<DisplayContentProps> = ({ children }) => {
             </div>
 
 
-    );
+    )
 }
 
 export default Header;
