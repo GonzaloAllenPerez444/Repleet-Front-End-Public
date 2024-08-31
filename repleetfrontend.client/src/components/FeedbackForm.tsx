@@ -21,7 +21,7 @@ const FeedbackForm: React.FC<FormProps> = ({ finishForm }) => {
 
     return (
         <form onSubmit={handleSubmit} className="fixed bottom-0 left-0 w-full flex justify-center p-4 shadow-md">
-            <div className="w-full max-w-md bg-gray-100 p-4 rounded-lg flex items-center">
+            <div className="mb-[10vh] sm:mb-auto sm:w-full max-w-lg bg-gray-100 p-4 rounded-lg flex items-center">
                 <select
                     className="flex-grow p-2 mr-4 rounded-md border border-gray-300"
                     name="rating"

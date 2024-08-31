@@ -252,13 +252,13 @@ const Practice = () => {
    
 
     return (
-        <div className=" w-screen h-[100vh] font-bold font-helvetica bg-gradient-to-b from-black via-black/90 via-70% to-blue-500">
+        <div className=" w-screen h-[100vh] max-h-[150vh] font-bold font-helvetica bg-gradient-to-b from-black via-black/90 via-70% to-blue-500">
 
             <Header>
                 <span><LogoutLink>Logout <AuthorizedUser value="email" /></LogoutLink></span>
             </Header>
 
-            <h1 className="text-white text-[5vw] ml-20">Practice</h1>
+            <h1 className="text-white text-[5vw] ml-20 mt-10">Practice</h1>
             <div className="mix-w-sm max-w-l w-1/2 rounded overflow-hidden shadow-lg m-20 bg-white">
                 <div className="px-6 py-4">
                     <div className="font-bold text-xl mb-2">Problem : {ProblemData?.title}</div>
