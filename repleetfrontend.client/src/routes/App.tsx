@@ -15,7 +15,7 @@ function App() {
 
     return (
 
-        <div className="w-screen min-h-screen font-bold font-helvetica bg-gradient-to-b from-black via-black/90 via-70% to-blue-500 flex flex-col
+        <div className="w-screen h-[125vh] font-bold font-helvetica bg-gradient-to-b from-black via-black/90 via-70% to-blue-500 flex flex-col
             gap-10">
 
             <Header >
@@ -43,10 +43,11 @@ function App() {
 
             </div>
 
-            <div className="flex">
+            <div className="flex flex-col justify-center h-[50vh]">
             <h1 className="text-white text-[2vw] pl-20"> HOW IT WORKS:</h1>
                 <TutorialCarousel />
             </div>
+            
 
         </div>
     )
