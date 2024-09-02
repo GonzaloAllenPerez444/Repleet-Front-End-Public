@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import RigidSlider from '../components/Slider';
 import SliderForm from '../components/SliderForm';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/LandingPageHeader';

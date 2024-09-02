@@ -21,7 +21,9 @@ function LogoutLink(props: { children: React.ReactNode }) {
 
                     navigate("/signin");
                 }
-                else { }
+                else {
+                    //Don't do anything if logout was unsuccessful
+                }
 
 
             })

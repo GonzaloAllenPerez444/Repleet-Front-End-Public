@@ -50,10 +50,10 @@ function SignUp() {
                     password: password,
                 }),
             })
-                //.then((response) => response.json())
+                
                 .then((data) => {
                     // handle success or error from the server
-                    console.log(data);
+                    
                     if (data.ok)
                         setError("Successful register.");
                     else

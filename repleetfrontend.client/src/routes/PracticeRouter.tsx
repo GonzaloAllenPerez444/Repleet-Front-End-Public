@@ -1,6 +1,5 @@
 // src/components/PrivateRoute.js
 import React from 'react';
-import { Route, redirect } from 'react-router-dom';
 import Practice from './Practice';
 import App from '../routes/App'
 import AuthorizeView, { AuthorizedUser } from '../components/AuthorizeView';

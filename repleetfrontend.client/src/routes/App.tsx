@@ -32,19 +32,19 @@ function App() {
 
         
             <h1 className="text-[10vw] text-white  pl-20 ">Repleet</h1>
-         <h2 className="text-[5vw] text-white pl-20"> Spaced Repetition for DSA Problems </h2>
+            <h2 className="text-[5vw] text-white pl-20"> Spaced Repetition for DSA Problems </h2>
 
             <div className="pl-20 pt-10 ">
          
         
-        {isNotCompleted ? (
+                {isNotCompleted ? (
                     <a href={`/info`} className=" w-1/5 text-white bg-blue-500 rounded-lg p-4  border border-blue-700 hover:text-black transition-colors duration-300">Get Started </a>
                 ) : <a href={`/practice`} className=" w-1/5 text-white bg-blue-500 rounded-lg p-4  border border-blue-700 hover:text-black transition-colors duration-300">Continue Learning </a>}
 
             </div>
 
             <div className="flex flex-col justify-center h-[50vh]">
-            <h1 className="text-white text-[2vw] pl-20"> HOW IT WORKS:</h1>
+                <h1 className="text-white text-[2vw] pl-20"> HOW IT WORKS:</h1>
                 <TutorialCarousel />
             </div>
             

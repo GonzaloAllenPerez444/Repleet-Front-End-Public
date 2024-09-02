@@ -1,11 +1,5 @@
 import Slider from './Slider';
 import React, { useState } from 'react';
-import {
-    Outlet,
-    Link,
-    useLoaderData,
-    Form,
-} from "react-router-dom";
 
 interface SliderFormProps {
     finishForm: Function;

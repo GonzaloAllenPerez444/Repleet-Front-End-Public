@@ -4,10 +4,12 @@ import Header from "../components/LandingPageHeader";
 
 
 function SignIn() {
+
     // state variables for email and passwords
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [rememberme, setRememberme] = useState<boolean>(false);
+
     // state variable for error messages
     const [error, setError] = useState<string>("");
     const navigate = useNavigate();
@@ -54,7 +56,7 @@ function SignIn() {
 
                 .then((data) => {
                     // handle success or error from the server
-                    console.log(data);
+                    
                     if (data.ok) {
                         setError("Successful Login.");
                         window.location.href = '/practice';

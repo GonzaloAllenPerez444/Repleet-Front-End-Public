@@ -11,7 +11,7 @@ const RigidSlider: React.FC<RigidSliderProps> = ({categoryName,changeParentState
     const max: number = 5;
     const step: number = 1;
 
-    const labels = {
+    const labels: { [key: number]: string } = {
         1: 'No Experience',
         2: 'Novice',
         3: 'Ok',

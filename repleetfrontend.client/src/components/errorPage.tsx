@@ -14,7 +14,7 @@ const ErrorPage: React.FC = () => {
             </Header>
         <div id="error-page" className="text-white flex justify-center">
             
-            <h1>Sorry, an unexpected error has occurred. Best, Gonzalo</h1>
+            <h1>Sorry, an unexpected error has occurred.</h1>
             <p>
                 <i>{error.message}</i>
             </p>
