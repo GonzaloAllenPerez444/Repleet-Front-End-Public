@@ -3,13 +3,7 @@ This page should only be able to be reached if there's a initial rating of all o
 Once it's down that, it should fetch the api of the .net backend, initialize all of the data, then print out the next chosen problem.
 */
 import React from 'react';
-import {
-    createBrowserRouter,
-    RouterProvider,
-    Route,
-    Link,
-} from "react-router-dom";
-import { useLocation, redirect ,useNavigate} from 'react-router-dom';
+
 import { useEffect, useState } from 'react';
 import Header from '../components/LandingPageHeader';
 import LogoutLink from '../components/LogoutLink';
@@ -30,12 +24,15 @@ interface GetProblemResponse {
 const isProblemInfoDTO = (value: any): value is ProblemInfoDTO => {
     return (value as ProblemInfoDTO).title !== undefined;
 };
+
 const getWordFromDifficulty = (d: QuestionDifficulty | undefined) => {
     if (d == undefined) { return undefined; }
     if (d == QuestionDifficulty.Easy) { return "Easy" }
     else if (d == QuestionDifficulty.Medium) { return "Medium" }
     else if (d == QuestionDifficulty.Hard) {return "Hard" }
 }
+
+//This function returns the response of the GET request "getnextproblem" in the backend
 async function FetchNextProblem(): Promise<GetProblemResponse> {
     try {
         const response = await fetch("/api/ProblemsAPI/getnextproblem", {
@@ -52,10 +49,11 @@ async function FetchNextProblem(): Promise<GetProblemResponse> {
     } catch (error) {
         // Handle the final error
         console.error("An error occurred:", (error as Error).message);
-        throw error; // Re-throw the error if needed, or handle it differently
+        throw error; 
     }
 }
 
+//This function returns the response of the GET request "getcategoryprogress" in the backend
 async function FetchProgress(): Promise<ProblemSetProgressResponseDTO> {
     try {
         const response = await fetch("/api/ProblemsAPI/getcategoryprogress", {
@@ -67,14 +65,12 @@ async function FetchProgress(): Promise<ProblemSetProgressResponseDTO> {
         }
 
         // Parse the JSON body if the response is successful
-        
-        
         return await response.json() as ProblemSetProgressResponseDTO;
 
     } catch (error) {
         // Handle the final error
         console.error("An error occurred:", (error as Error).message);
-        throw error; // Re-throw the error if needed, or handle it differently
+        throw error; 
     }
 }
 
@@ -82,12 +78,15 @@ async function FetchProgress(): Promise<ProblemSetProgressResponseDTO> {
 
 const Practice = () => {
 
-    const [ProblemData, setProblemData] = useState<ProblemInfoDTO | null>(null);
-    const [CategoryPercents, setCategoryPercents] = useState<Map<string,number> | null>(null);
+    const [ProblemData, setProblemData] = useState<ProblemInfoDTO | null>(null); //information on cards
+    const [CategoryPercents, setCategoryPercents] = useState<Map<string,number> | null>(null); //map of category: percent done
     const [loading, setLoading] = useState(true); // State to handle loading state
 
+
+    //This function submits the rating for the current problem, then the backend updates it.
+    //Then, we fetch the next problem and new percentages to display top the user.
     async function ProcessFormSubmit(rating: SkillLevel) {
-        console.log("Called Process Form Submit with " + rating)
+        
         const SPR: SubmitProblemRequestDTO = {
 
             "problemName": ProblemData?.title,
@@ -106,17 +105,19 @@ const Practice = () => {
             // Check if the response is successful (status code 200-299)
 
             if (!response.ok) {
-                console.log(`HTTP error! status: ${response.status}`)
+                
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
+
             // Parse the JSON body if the response is successful
             return response.json();
         }).then(data => {
-            console.log("Updated PS was " + JSON.stringify(data.value));
+
+            //console.log("Updated PS was " + JSON.stringify(data.value));
 
             //Now call the GetNextProblemEndpoint to generate the next card to display
             FetchNextProblem().then((data: { value: string | ProblemInfoDTO }) => {
-                console.log(data.value);
+                
                 if (isProblemInfoDTO(data.value)) { setProblemData(data.value); }
 
                 setLoading(false);
@@ -124,13 +125,13 @@ const Practice = () => {
 
         });
 
-        //Also Fetch and display the new percentage bar again to give the user the most recent feedback!
+        //After the above, Fetch and display the new percentage bar again to give the user the most recent feedback!
         FetchProgress().then(
             (value: ProblemSetProgressResponseDTO) => {
                 
                 const categoryMap: Map<string, number> = new Map(Object.entries(value.data))
                 setCategoryPercents(categoryMap);
-                console.log("NEW progress data is " + JSON.stringify(value.data));
+                
             })
         
 
@@ -141,10 +142,12 @@ const Practice = () => {
 
     useEffect(() => {
         
-            //Connect to the backend API here!
-            //First, check if a user has a problemSet associated with them. if they do, get next problem.
-            //To do this, add the endpoints to the proxy and fetch getnextproblem.
-        //If you get return new JsonResult(Ok("Problem Set Not Found")) then we need to make a problem set first.
+            
+        //This effect connects to the backend API and gets/creates the information of the user.
+        //First,we  check if a user has a problemSet associated with them by attempting to create a 
+        //new problem set with the submitratings  POST endpoint if there's not one already.
+        //Then, we get the next suggested problem and percentaes from FetchNextProblem and FetchCategoryProgress
+        
 
         const ratingListString = localStorage.getItem('userRatings');
 
@@ -153,8 +156,9 @@ const Practice = () => {
                     //if it's a new user
                     if (data.value === "Problem Set Not Found")
                     {
-                        console.log("New User, creating new Problem Set");
-                        console.log(ratingListString);
+                        //This means its a new user so we create a new problem set for them if they filled out the survey
+
+
                         if (ratingListString == null) { console.log("fill out survey first!"); return; }
 
                         //make new problemSet
@@ -170,24 +174,26 @@ const Practice = () => {
                             // Check if the response is successful (status code 200-299)
 
                             if (!response.ok) {
-                                console.log(`HTTP error! status: ${response.status}`)
+                                
                                 throw new Error(`HTTP error! status: ${response.status}`);
                             }
                             // Parse the JSON body if the response is successful
                             return response.json();
+
                         }).then(data => {
-                            console.log("new PS ID is " + data.value);
+                            //new PS created.
 
-                            //Now that user is Created, get the next problem as before.
+                            //Fetch problem and percentages for this new problemSet.
+                        
+                            FetchNextProblem().then((data: { value: string | ProblemInfoDTO }) => {
 
-                            FetchNextProblem().then((data: {value: string | ProblemInfoDTO}) => {
-                                console.log(data.value);
+                                
                                 if (isProblemInfoDTO(data.value)) { setProblemData(data.value); }
 
                                 //process percentage bars now and display
                                 FetchProgress().then(
                                     (value: ProblemSetProgressResponseDTO) => {
-                                        console.log("progress data is " + JSON.stringify(value.data));
+                                        
                                         const categoryMap: Map<string, number> = new Map(Object.entries(value.data))
                                         setCategoryPercents(categoryMap);
 
@@ -207,17 +213,17 @@ const Practice = () => {
                     }
 
                     
-                    // If this is a preexisting user
+                    // If this is a preexisting user, we can skip the PS creation step.
                     else
                     {
-                        console.log(data.value)
+                        
                         if (isProblemInfoDTO(data.value)) {
                             
                             setProblemData(data.value);
                         }
                         
 
-                        //fetch progress and display
+                        //fetch percentages and display
                         FetchProgress().then(
                             (value: ProblemSetProgressResponseDTO) => {
                                 console.log("progress data is " + JSON.stringify(value.data));
@@ -230,23 +236,13 @@ const Practice = () => {
                     };
                 })
                 .catch(error => {
-                    // Handle the final error
+                    
                     console.log(error.message);
-                });
-
-
-            //If they don't, get the survey results from localstorage, make a new problemset and get the next problem after that.
-            //Delete the survey ratings afterward for security?
-
-            //Get Progress results
-        
-
-        
+                });                         
     }, []);
     
 
-    // const apiKey = process.env.VITE_REACT_APP_PROBLEMS_API_URL
-    //const apiKey = import.meta.env.VITE_REACT_APP_PROBLEMS_API_URL
+    
  
     
    
