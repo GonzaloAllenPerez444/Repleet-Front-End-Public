@@ -8,7 +8,7 @@ import child_process from 'child_process';
 import { env } from 'process';
 import { defineConfig, loadEnv } from 'vite'
 
-
+/*
 const baseFolder =
     env.APPDATA !== undefined && env.APPDATA !== ''
         ? `${env.APPDATA}/ASP.NET/https`
@@ -34,7 +34,7 @@ if (!fs.existsSync(certFilePath) || !fs.existsSync(keyFilePath)) {
 
 const target = env.ASPNETCORE_HTTPS_PORT ? `https://localhost:${env.ASPNETCORE_HTTPS_PORT}` :
     env.ASPNETCORE_URLS ? env.ASPNETCORE_URLS.split(';')[0] : 'https://localhost:7149';
-
+*/
 
 // https://vitejs.dev/config/
 
@@ -92,11 +92,11 @@ export default defineConfig(({ mode }) => {
 
             },
 
-            port: 5173,
-            https: {
-                key: fs.readFileSync(keyFilePath),
-                cert: fs.readFileSync(certFilePath),
-            }
+            //port: 5173, dont need this in prod
+            //https: {
+                //key: fs.readFileSync(keyFilePath),
+                //cert: fs.readFileSync(certFilePath),
+            //}
 
         },
     };
