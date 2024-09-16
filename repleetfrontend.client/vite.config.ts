@@ -52,7 +52,7 @@ export default defineConfig({
         
 
         proxy: {
-            //add other endpoints later
+            //add other endpoints later 
             '^/pingauth': {
                 target: 'https://localhost:44370',
                 secure: false
