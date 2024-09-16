@@ -1,14 +1,14 @@
-import React, { useState } from 'react'
+import React  from 'react'
 import App from './routes/App.tsx'
 import './style.css'
 import * as ReactDOM from "react-dom/client";
 import {
     createBrowserRouter,
     RouterProvider,
-    Route,
-    Link,
-    redirect,
+    
 } from "react-router-dom";
+//Route,Link,redirect,^
+
 import ErrorPage from "./components/errorPage.tsx";
 
 import PracticeRouter from './routes/PracticeRouter.tsx';

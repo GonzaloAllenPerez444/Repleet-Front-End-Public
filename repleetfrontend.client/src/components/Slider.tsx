@@ -19,7 +19,7 @@ const RigidSlider: React.FC<RigidSliderProps> = ({categoryName,changeParentState
         5: 'Mastered'
     };
 
-    const rangeValues = Array.from({ length: max - min + 1 }, (_, i) => i + min);
+    //const rangeValues = Array.from({ length: max - min + 1 }, (_, i) => i + min);
     const [value, setValue] = useState<number>(min);
    
     

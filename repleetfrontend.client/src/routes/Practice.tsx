@@ -2,7 +2,7 @@
 This page should only be able to be reached if there's a initial rating of all of the categories.
 Once it's down that, it should fetch the api of the .net backend, initialize all of the data, then print out the next chosen problem.
 */
-import React from 'react';
+
 
 import { useEffect, useState } from 'react';
 import Header from '../components/LandingPageHeader';
@@ -114,7 +114,8 @@ const Practice = () => {
         }).then(data => {
 
             //console.log("Updated PS was " + JSON.stringify(data.value));
-
+            var a = data;
+            a += 1;
             //Now call the GetNextProblemEndpoint to generate the next card to display
             FetchNextProblem().then((data: { value: string | ProblemInfoDTO }) => {
                 
@@ -182,7 +183,8 @@ const Practice = () => {
 
                         }).then(data => {
                             //new PS created.
-
+                            var a = data;
+                            a += 1;
                             //Fetch problem and percentages for this new problemSet.
                         
                             FetchNextProblem().then((data: { value: string | ProblemInfoDTO }) => {

@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
+
 import '../App.css';
 import Header from '../components/LandingPageHeader.tsx';
 import '../style.css';
 import "tailwindcss/tailwind.css"
 import { useAuth } from '../components/AuthContext.tsx';
-import TutorialCarousel from '../components/TutorialCarousel.tsx';
+import  TutorialCarousel from '../components/TutorialCarousel.tsx';
 
 
 

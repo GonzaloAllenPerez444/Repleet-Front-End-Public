@@ -1,4 +1,4 @@
-import React from 'react';
+//import React from 'react';
 
 import Survey from './Survey';
 import App from '../routes/App'

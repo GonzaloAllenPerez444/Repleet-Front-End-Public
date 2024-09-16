@@ -1,5 +1,5 @@
 import Slider from './Slider';
-import React, { useState } from 'react';
+import React from 'react';
 
 interface SliderFormProps {
     finishForm: Function;
