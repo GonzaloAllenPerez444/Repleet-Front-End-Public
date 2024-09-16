@@ -8,6 +8,7 @@ import child_process from 'child_process';
 import { env } from 'process';
 import { defineConfig, loadEnv } from 'vite'
 
+
 const baseFolder =
     env.APPDATA !== undefined && env.APPDATA !== ''
         ? `${env.APPDATA}/ASP.NET/https`
@@ -34,64 +35,70 @@ if (!fs.existsSync(certFilePath) || !fs.existsSync(keyFilePath)) {
 const target = env.ASPNETCORE_HTTPS_PORT ? `https://localhost:${env.ASPNETCORE_HTTPS_PORT}` :
     env.ASPNETCORE_URLS ? env.ASPNETCORE_URLS.split(';')[0] : 'https://localhost:7149';
 
-// https://vitejs.dev/config/
-export default defineConfig({
-    plugins: [plugin()],
-    resolve: {
-        alias: {
-            '@': fileURLToPath(new URL('./src', import.meta.url))
-        }
-    },
-    server: {
-        //proxy: {
-           // '^/weatherforecast': {
-            //    target,
-           //     secure: false
-           //}
-        //},
-        
 
-        proxy: {
-            //add other endpoints later 
-            '^/pingauth': {
-                target: 'https://localhost:44370',
-                secure: false
+// https://vitejs.dev/config/
+
+
+export default defineConfig(({ mode }) => {
+    // Load environment variables based on the mode (e.g., development, production, or a custom mode)
+    const env = loadEnv(mode, process.cwd());
+
+    return {
+        define: {
+            // Using environment variables inside your config file
+            'process.env.VITE_API_URL': JSON.stringify(env.VITE_API_URL),
+        },
+        plugins: [plugin()],
+        resolve: {
+            alias: {
+                '@': fileURLToPath(new URL('./src', import.meta.url))
+            }
+        },
+        server: {
+            proxy: {
+                
+                '^/pingauth': {
+                    target: env.VITE_API_URL,
+                    secure: true
+                },
+                '^/register': {
+                    target: env.VITE_API_URL,
+                    secure: true
+                },
+                '^/login': {
+                    target: env.VITE_API_URL,
+                    secure: true
+                },
+                '^/logout': {
+                    target: env.VITE_API_URL,
+                    secure: true
+                },
+                '^/api/ProblemsAPI/submitratings': {
+                    target: env.VITE_API_URL,
+                    secure: true
+                },
+                '^/api/ProblemsAPI/getnextproblem': {
+                    target: env.VITE_API_URL,
+                    secure: true
+                },
+                '^/api/ProblemsAPI/submitproblem': {
+                    target: env.VITE_API_URL,
+                    secure: true
+                },
+                '^/api/ProblemsAPI/getcategoryprogress': {
+                    target: env.VITE_API_URL,
+                    secure: true
+                }
+
             },
-            '^/register': {
-                target: 'https://localhost:44370',
-                secure: false
-            },
-            '^/login': {
-                target: 'https://localhost:44370',
-                secure: false
-            },
-            '^/logout': {
-                target: 'https://localhost:44370',
-                secure: false
-            },
-            '^/api/ProblemsAPI/submitratings': {
-                target: 'https://localhost:44370',
-                secure: false
-            },
-            '^/api/ProblemsAPI/getnextproblem': {
-                target: 'https://localhost:44370',
-                secure: false
-            },
-            '^/api/ProblemsAPI/submitproblem': {
-                target: 'https://localhost:44370',
-                secure: false
-            },
-            '^/api/ProblemsAPI/getcategoryprogress': {
-                target: 'https://localhost:44370',
-                secure: false
+
+            port: 5173,
+            https: {
+                key: fs.readFileSync(keyFilePath),
+                cert: fs.readFileSync(certFilePath),
             }
 
-
         },
-        port: 5173,
-        https: {
-            key: fs.readFileSync(keyFilePath),
-            cert: fs.readFileSync(certFilePath),
-        }
-    }
-})
+    };
+});
+
