@@ -11,7 +11,7 @@ services:
       - key: VITE_API_URL
         value: https://repleet.azurewebsites.net
     routes:
-      - type: redirect
+      - type: Rewrite
         source: "/*"
         destination: "/index.html"
         
