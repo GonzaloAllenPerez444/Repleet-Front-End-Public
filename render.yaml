@@ -6,12 +6,13 @@ services:
     branch: main
     rootDir: repleetfrontend.client
     buildCommand: npm install && npm run build
-    publishPath: dist
+    staticPublishPath: ./dist
     envVars:
       - key: VITE_API_URL
         value: https://repleet.azurewebsites.net
-    redirects:
-      - source: "/*"
+    routes:
+      - type: redirect
+        source: "/*"
         destination: "/index.html"
         statusCode: 200
 
