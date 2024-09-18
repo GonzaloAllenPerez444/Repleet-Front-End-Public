@@ -40,7 +40,8 @@ function SignUp() {
             // clear error message
             setError("");
             // post data to the /register api
-            fetch("/register", {
+            const apiUrl = import.meta.env.VITE_API_URL;
+            fetch(`${apiUrl}/register`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

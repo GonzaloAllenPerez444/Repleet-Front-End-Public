@@ -35,8 +35,10 @@ const getWordFromDifficulty = (d: QuestionDifficulty | undefined) => {
 //This function returns the response of the GET request "getnextproblem" in the backend
 async function FetchNextProblem(): Promise<GetProblemResponse> {
     try {
-        const response = await fetch("/api/ProblemsAPI/getnextproblem", {
+        const apiUrl = import.meta.env.VITE_API_URL;
+        const response = await fetch(`${apiUrl}/api/ProblemsAPI/getnextproblem`, {
             method: "GET",
+            credentials: "include"
         });
 
         if (!response.ok) {
@@ -56,8 +58,10 @@ async function FetchNextProblem(): Promise<GetProblemResponse> {
 //This function returns the response of the GET request "getcategoryprogress" in the backend
 async function FetchProgress(): Promise<ProblemSetProgressResponseDTO> {
     try {
-        const response = await fetch("/api/ProblemsAPI/getcategoryprogress", {
+        const apiUrl = import.meta.env.VITE_API_URL;
+        const response = await fetch(`${apiUrl}/api/ProblemsAPI/getcategoryprogress`, {
             method: "GET",
+            credentials: "include"
         });
 
         if (!response.ok) {
@@ -95,8 +99,10 @@ const Practice = () => {
         };
 
         //call the submitproblem POST Endpoint with the rating
-        fetch("/api/ProblemsAPI/submitproblem", {
+        const apiUrl = import.meta.env.VITE_API_URL;
+        fetch(`${apiUrl}/api/ProblemsAPI/submitproblem`, {
             method: "POST",
+            credentials: "include",
             headers: {
                 "Content-Type": "application/json",
             },
@@ -163,8 +169,10 @@ const Practice = () => {
                         if (ratingListString == null) { console.log("fill out survey first!"); return; }
 
                         //make new problemSet
-                        fetch("/api/ProblemsAPI/submitratings", {
+                        const apiUrl = import.meta.env.VITE_API_URL;
+                        fetch(`${apiUrl}/api/ProblemsAPI/submitratings`, {
                             method: "POST",
+                            credentials: "include",
                             headers: {
                                 "Content-Type": "application/json",
                             },

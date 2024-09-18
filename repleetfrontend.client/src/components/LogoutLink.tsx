@@ -4,12 +4,14 @@ import { useNavigate } from "react-router-dom";
 function LogoutLink(props: { children: React.ReactNode }) {
 
     const navigate = useNavigate();
+    const apiUrl = import.meta.env.VITE_API_URL;
 
 
     const handleSubmit = (e: React.FormEvent<HTMLAnchorElement>) => {
         e.preventDefault();
-        fetch("/logout", {
+        fetch(`${apiUrl}/logout`, {
             method: "POST",
+            credentials: "include",
             headers: {
                 "Content-Type": "application/json",
             },

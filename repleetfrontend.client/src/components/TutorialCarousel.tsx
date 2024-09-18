@@ -8,17 +8,17 @@ interface CarouselItem {
 const TutorialCarousel: React.FC = () => {
     const items: CarouselItem[] = [
         {
-            image: '../public/SurveyScreenshot.png',
+            image: './SurveyScreenshot.png',
             caption: '1) Plug in your initial Skill Level with Each of the 18 most popular categories of Data Structure and ' +
                 'Algorithm Problems and log in to get your own personalized problem reccomendations.',
         },
         {
-            image: '../public/CardScreenshot.png',
+            image: './CardScreenshot.png',
             caption: "2) We'll pick out a problem based " +
                 'on what you should work on next, as well as display your overall progress',
         },
         {
-            image: '../public/SubmitScreenshot.png',
+            image: './SubmitScreenshot.png',
             caption: "3) Once you've attempted a problem, submit how well you did to update your progress and generate the next one!",
         },
     ];

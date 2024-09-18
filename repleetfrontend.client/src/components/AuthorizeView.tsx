@@ -32,7 +32,8 @@ function AuthorizeView(props: { children: React.ReactNode }) {
         // fetch function that retries until status 200 or 401
         async function fetchWithRetry(url: string, options: any) {
             try {
-                
+
+                console.log("pingaiuth url is  " + url);
                 let response = await fetch(url, options);
 
                 
@@ -44,13 +45,15 @@ function AuthorizeView(props: { children: React.ReactNode }) {
                     return response; 
 
                 } else if (response.status == 401) {
+                    console.log("NNNNNNNNNN")
                     return response; 
                 } else {
                     // throw an error to trigger the catch block
                     throw new Error("" + response.status);
                 }
             } catch (error) {
-                
+
+                console.log("BBBBBBBBBBBBBBBB")
                 retryCount++;
                 // check if the retry limit is reached
                 if (retryCount > maxRetries) {
@@ -65,8 +68,14 @@ function AuthorizeView(props: { children: React.ReactNode }) {
         }
 
         // call the fetch function with retry logic
-        fetchWithRetry("/pingauth", {
+        const apiUrl = import.meta.env.VITE_API_URL;
+        fetchWithRetry(`${apiUrl}/pingauth`, {
             method: "GET",
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
+                
+            }
         })
             .catch((error) => {
                 // handle the final error

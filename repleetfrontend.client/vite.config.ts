@@ -8,6 +8,10 @@ import child_process from 'child_process';
 import { env } from 'process';
 import { defineConfig, loadEnv } from 'vite'
 
+
+
+
+//remove FOR PROD 
 /*
 const baseFolder =
     env.APPDATA !== undefined && env.APPDATA !== ''
@@ -33,8 +37,8 @@ if (!fs.existsSync(certFilePath) || !fs.existsSync(keyFilePath)) {
 }
 
 const target = env.ASPNETCORE_HTTPS_PORT ? `https://localhost:${env.ASPNETCORE_HTTPS_PORT}` :
-    env.ASPNETCORE_URLS ? env.ASPNETCORE_URLS.split(';')[0] : 'https://localhost:7149';
-*/
+    env.ASPNETCORE_URLS ? env.ASPNETCORE_URLS.split(';')[0] : 'https://localhost:7149'; */
+//END REMOVE FOR PROD
 
 // https://vitejs.dev/config/
 
@@ -55,6 +59,7 @@ export default defineConfig(({ mode }) => {
             }
         },
         server: {
+            /* dont need in prod
             proxy: {
                 
                 '^/pingauth': {
@@ -90,15 +95,31 @@ export default defineConfig(({ mode }) => {
                     secure: true
                 }
 
+            }, */
+
+            port: 5173, //dont need this in prod - REMOVE WHEN GOING TO PROD
+           // https: {
+             //   key: fs.readFileSync(keyFilePath),
+             //  cert: fs.readFileSync(certFilePath),
+          //  }
+
+        }, 
+        build: {
+            outDir: 'dist',             // Where the build will be output (dist folder)
+            rollupOptions: {
+                input: {
+                    main: path.resolve(__dirname, 'index.html'),  // Include the HTML file as an input
+                },
+                output: {
+                    // Specify file names to control the structure of the dist folder
+                    entryFileNames: `[name].js`,
+                    chunkFileNames: `[name].js`,
+                    assetFileNames: `[name].[ext]`,
+                },
             },
+        }, //end of build
+        
 
-            //port: 5173, dont need this in prod
-            //https: {
-                //key: fs.readFileSync(keyFilePath),
-                //cert: fs.readFileSync(certFilePath),
-            //}
-
-        },
     };
 });
 

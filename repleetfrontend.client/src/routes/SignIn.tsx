@@ -38,13 +38,15 @@ function SignIn() {
             // post data to the /register api
 
             var loginurl = "";
+            const apiUrl = import.meta.env.VITE_API_URL;
             if (rememberme == true)
-                loginurl = "/login?useCookies=true";
+                loginurl = `${apiUrl}/login?useCookies=true`;
             else
-                loginurl = "/login?useSessionCookies=true";
+                loginurl = `${apiUrl}/login?useSessionCookies=true`;
 
             fetch(loginurl, {
                 method: "POST",
+                credentials: "include",
                 headers: {
                     "Content-Type": "application/json",
                 },
@@ -59,7 +61,8 @@ function SignIn() {
                     
                     if (data.ok) {
                         setError("Successful Login.");
-                        window.location.href = '/practice';
+                        //window.location.href = '/practice';
+                        navigate("/practice");
                     }
                     else
                         setError("Error Logging In.");

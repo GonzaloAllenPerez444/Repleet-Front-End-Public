@@ -9,19 +9,23 @@ const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+    const apiUrl = import.meta.env.VITE_API_URL;
+    
 
     const checkAuth = async () => {
         try {
-            const response = await fetch("/pingauth", {
+            const response = await fetch(`${apiUrl}/pingauth`, {
                 method: "GET",
             });
             if (response.status === 200) {
+                
                 setIsAuthenticated(true);
             } else {
+                
                 setIsAuthenticated(false);
             }
         } catch (error) {
-            console.error('Error checking authentication:', error);
+            
             setIsAuthenticated(false);
         }
     };
