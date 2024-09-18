@@ -1,18 +1,18 @@
 services:
-  - type: web
+  - type: static
     name: repleetfrontend
     repo: https://github.com/GonzaloAllenPerez444/RepleetFrontend
     branch: main
     rootDir: repleetfrontend.client
     buildCommand: npm install && npm run build
-    startCommand: serve -s dist
+    publishPath: dist
     envVars:
       - key: VITE_API_URL
         value: https://repleet.azurewebsites.net
-    routes:
-      - type: rewrite
-        source: "/*"
+    redirects:
+      - source: "/*"
         destination: "/index.html"
+        statusCode: 200
 
 
 
