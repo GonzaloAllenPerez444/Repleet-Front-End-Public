@@ -52,6 +52,7 @@ export default defineConfig(({ mode }) => {
             // Using environment variables inside your config file
             'process.env.VITE_API_URL': JSON.stringify(env.VITE_API_URL),
         },
+        base: "/",
         plugins: [plugin()],
         resolve: {
             alias: {
