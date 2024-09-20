@@ -98,7 +98,7 @@ export default defineConfig(({ mode }) => {
 
             }, */
 
-            port: 5173, //dont need this in prod - REMOVE WHEN GOING TO PROD
+            //port: 5173, //dont need this in prod - REMOVE WHEN GOING TO PROD
            // https: {
              //   key: fs.readFileSync(keyFilePath),
              //  cert: fs.readFileSync(certFilePath),
