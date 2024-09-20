@@ -12,8 +12,8 @@ services:
         value: https://repleet.azurewebsites.net
     routes:
       - type: rewrite
-        source: "/*"
-        destination: "/index.html"
+        source: /*
+        destination: /index.html
         
 
 
