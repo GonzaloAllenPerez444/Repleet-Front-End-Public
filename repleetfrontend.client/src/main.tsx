@@ -29,11 +29,11 @@ const router = createBrowserRouter([
         errorElement: <ErrorPage />,
     },
     {
-        path: "info",
+        path: "/info",
         element: <SurveyRouter />,
     },
     {
-        path: "practice",
+        path: "/practice",
         element: <PracticeRouter />
         
     },
