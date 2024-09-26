@@ -1,6 +1,6 @@
 # RepleetFrontend
 
-Hi There, Welcome to Repleet, the spaced repetition app for Data Structures and Algorithmn Problems. Visit the app [HERE](https://vercel.com/gonzaloallenperez444s-projects/repleet-frontend)
+Hi There, Welcome to Repleet, the spaced repetition app for Data Structures and Algorithmn Problems. Visit the app [HERE](https://repleet-frontend.vercel.app/)
 
 # How it Works
 1) Fill out a quick survey about your current skill level in 18 popular categories, ranging from Linked Lists to Dynamic Programming.
