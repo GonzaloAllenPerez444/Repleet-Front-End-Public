@@ -19,4 +19,4 @@ Hi There, Welcome to Repleet, the spaced repetition app for Data Structures and 
 
 
 # Tech Stack and Architecture Details
-The front end of Repleet uses Vite as a build tool, Typescript React and TailwindCSS for the front end components, and vercel for deployment.
+The front end of Repleet uses Vite as a build tool, Typescript React and TailwindCSS for the front end components, and Vercel for deployment.
